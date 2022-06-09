@@ -1,3 +1,4 @@
+import path
 from flask import Flask,jsonify
 from flask_migrate import Migrate
 from configdb import *
@@ -47,9 +48,5 @@ def list_order():
     data = get_request_json()
     lo = ClassListOrder(data, FULL_URL_DB)
     return jsonify(lo.getResponse)
-
-# METODO get_request_json
-def get_request_json():
-    return request.get_json()
 
 
