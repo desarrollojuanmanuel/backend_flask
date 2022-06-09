@@ -73,7 +73,6 @@ class ClassCreateOrder:
                 'a_mensaje':f'El cliente: {self.__customer} no tiene acceso para algunos productos por favor revise lo orden',
                 'sin acceso': f'{not_product}',
                 'con acceso': f'{ok_product}',
-                'status':400
                 }
             )
         else:
