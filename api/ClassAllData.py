@@ -1,3 +1,5 @@
+from models import *
+
 class ClassAllData:
     
     def __init__(self, type):
@@ -18,6 +20,8 @@ class ClassAllData:
             self._load_customers()
         elif(self.__type == 'product'):
             self._load_product()
+        elif(self.__type == 'customer_product'):
+            self._load_all_customer_product()
    
     def _load_customers(self):
         Customers = self.__data 
@@ -40,6 +44,20 @@ class ClassAllData:
                 'name':product.name, 
                 'product_description':product.product_description,
                 'price': product.price
+            }
+            d.append(b)
+        self.__list = d
+    
+    def _load_all_customer_product(self):
+        cp = self.__data
+        d = []
+        b = {}
+        for c in cp:
+            customer = Customer.query.get(c.customer_id)
+            product = Product.query.get(c.product_id)
+            b = {
+                'product_id':product.name,
+                'customer':customer.name, 
             }
             d.append(b)
         self.__list = d

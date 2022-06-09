@@ -1,12 +1,10 @@
-from flask import Flask,request,jsonify,url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask,jsonify
 from flask_migrate import Migrate
-from sqlalchemy import create_engine, insert
 from configdb import *
 from models import *
-from ClassAllData import ClassAllData
 from ClassCreateOrder import ClassCreateOrder
 from ClassListOrder import ClassListOrder
+from functions import *
 
 # INICO DE LA PLICACION
 app = Flask(__name__)
@@ -33,19 +31,7 @@ def all_product():
 # METODO GET all_customer_product
 @app.route(f"{api}/all_customer_product")
 def all_customer_product():
-    cp = CustomerProduct.query.all()
-    d = []
-    b = {}
-    for c in cp:
-        customer = Customer.query.get(c.customer_id)
-        product = Product.query.get(c.product_id)
-        b = {
-            'product_id':product.name,
-            'customer':customer.name, 
-        }
-        d.append(b)
-
-    return jsonify(d)
+    return jsonify(all_data('customer_product',CustomerProduct.query.all()))
 
 # METODO POST create_order
 @app.route(f"{api}/create_order", methods=['POST'])
@@ -62,23 +48,8 @@ def list_order():
     lo = ClassListOrder(data, FULL_URL_DB)
     return jsonify(lo.getResponse)
 
-
-# METODO all_data
-def all_data(type, query):
-    cl = ClassAllData(type)
-    cl.setData = query
-    cl.load_process
-    return cl.resolved
-
 # METODO get_request_json
 def get_request_json():
     return request.get_json()
 
-    
-def sql_query(query):
-    engine = create_engine(FULL_URL_DB)
-
-    with engine.connect() as conn:
-        result = conn.execute(query)
-        return result.fetchall()
 
