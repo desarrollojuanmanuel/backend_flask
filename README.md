@@ -1,5 +1,6 @@
 # prueba_beitech
 El desarrollo del API se hizo con el framework flask y postgesSQL
+Version de python 3.9.12
 # configuraciones a tener en cuenta
 1.	Instalar flask  (pip install flask).
 2.	Subir el API (FLASK run)
