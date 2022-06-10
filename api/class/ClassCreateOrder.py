@@ -18,8 +18,7 @@ class ClassCreateOrder:
     
     @property
     def load_process(self):
-        if self._validate_max_order_products():
-            self._validate_data_empty()
+        if self._validate_max_order_products() and self._validate_data_empty():
             self._get_customer_id()
             self._ready_order()
     
@@ -38,6 +37,7 @@ class ClassCreateOrder:
             elif len(item) == 0:
                 self._setResponse({"error_mensaje": f'el item {key} es obligatorio para montar la orden'})
                 return False
+        return True
 
     def _get_customer_id(self):
         customer = self.__customer
@@ -105,6 +105,7 @@ class ClassCreateOrder:
                 order_detail_id = add_order_detail.order_detail_id
         
         new_order = {
+            "state_order": f'Lo orden {self.__order_id} ha sido creada',
             "customer":self.__customer ,
             "creation_date": self.__order['creation_date'],
             "delevery_address":self.__order['delevery_address'],
