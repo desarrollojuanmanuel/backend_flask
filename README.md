@@ -7,7 +7,7 @@
 3.	Configurar modo de desarrollo   CMD WINDOWS(set FLASK_APP=app.py,  set FLASK_ENV=development)
 4.	Instalar sqlalchemy (pip install flask-sqlalchemy)
 5.	pip install flask-migrate
-6.	pip install psycopg2 (se uso postgres sql)
+6.	pip install psycopg2 (para uso postgres sql)
 7.	flask db init --  crea el directorio con la migraciones
 8.	flask db migrate --  genera el sql a ejecutar
 9.	flask db upgrade – creación de tablas en base de datos
