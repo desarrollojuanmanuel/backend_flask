@@ -18,9 +18,17 @@ class ClassCreateOrder:
     
     @property
     def load_process(self):
-        self._validate_data_empty()
-        self._get_customer_id()
-        self._ready_order()
+        if self._validate_max_order_products():
+            self._validate_data_empty()
+            self._get_customer_id()
+            self._ready_order()
+    
+    def _validate_max_order_products(self):
+        if len(self.__order['Products']) > 5:
+            self._setResponse({"error_mensaje": f'maximo cinco productos por orden'})
+            return False
+        return True
+            
     
     def _validate_data_empty(self):
         for key, item in self.__order.items():
